@@ -33,6 +33,7 @@ export default function FieldRenderer({ field, value, onChange, error, watch, re
   ) : null
 
   if(field.type === 'text'){
+    const isDisabled = readOnly || field.disabled
     return (
       <div>
         <label className="form-label">
@@ -40,13 +41,13 @@ export default function FieldRenderer({ field, value, onChange, error, watch, re
           {verifiedBadge}
         </label>
         <input
-          className={`form-control ${error? 'is-invalid':''} ${readOnly ? 'bg-light' : ''}`}
+          className={`form-control ${error? 'is-invalid':''} ${isDisabled ? 'bg-light' : ''}`}
           value={value||''}
           onChange={e=>onChange(e.target.value)}
           maxLength={500}
-          readOnly={readOnly}
-          disabled={readOnly}
-          style={readOnly ? { cursor: 'not-allowed', backgroundColor: '#e9ecef' } : undefined}
+          readOnly={isDisabled}
+          disabled={isDisabled}
+          style={isDisabled ? { cursor: 'not-allowed', backgroundColor: '#e9ecef' } : undefined}
         />
         {readOnly && (
           <small className="text-muted">This field is verified and cannot be changed</small>

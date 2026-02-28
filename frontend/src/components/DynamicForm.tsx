@@ -82,6 +82,17 @@ export default function DynamicForm({ formConfig, onSubmit, prefilledFields = {}
   const currentSectionFields = sections[current].fields
   const incompleteMandatory = currentSectionFields.filter(f => {
     if(!f.mandatory) return false
+    // Skip mandatory check for hidden conditional fields
+    if (f.condition) {
+      try {
+        const expr = f.condition.replace(/==/g, '===')
+        // eslint-disable-next-line no-new-func
+        const visible = Function('values', `with(values){ return ${expr} }`)(values)
+        if (!visible) return false
+      } catch (e) {
+        return false
+      }
+    }
     const val = values[f.actual_name]
     return !val || val === '' || (Array.isArray(val) && val.length === 0)
   })
