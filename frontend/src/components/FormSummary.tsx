@@ -59,7 +59,9 @@ export default function FormSummary({ formConfig, formData, onEdit, onConfirm }:
               // Check if field should be shown based on condition
               if (field.condition) {
                 try {
-                  const conditionMet = new Function(...Object.keys(formData), `return ${field.condition}`)(...Object.values(formData))
+                  const expr = field.condition.replace(/==/g, '===')
+                  // eslint-disable-next-line no-new-func
+                  const conditionMet = Function('values', `with(values){ return ${expr} }`)(formData)
                   if (!conditionMet) return null
                 } catch (e) {
                   return null
