@@ -136,17 +136,6 @@ export default function AdminLogin({ onLoginSuccess }: AdminLoginProps) {
           </form>
 
           <div className="text-center mt-4">
-            <div style={{
-              backgroundColor: '#f8f9fa',
-              padding: '12px',
-              borderRadius: '8px',
-              border: '1px solid #e9ecef'
-            }}>
-              <small className="text-muted" style={{ fontSize: '12px' }}>
-                <strong>Default Credentials:</strong><br />
-                <code style={{ fontSize: '11px', color: '#495057' }}>vglugadmin / WeGlug@123</code>
-              </small>
-            </div>
           </div>
         </div>
       </div>
